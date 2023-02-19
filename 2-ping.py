@@ -3,10 +3,7 @@
 #
 
 import ipaddress
-import ssl
 import wifi
-import socketpool
-import adafruit_requests
 
 try:
     from secrets import secrets
@@ -15,10 +12,19 @@ except ImportError:
     print("WiFi secrets are kept in secrets.py, please add them there!")
     raise
 
-print("Connecting to %s"%secrets["ssid"])
-wifi.radio.connect(secrets["ssid"], secrets["password"])
-print("Connected to %s!"%secrets["ssid"])
-print("My IP address is", wifi.radio.ipv4_address)
+print( "Mi connetto a " + secrets["ssid"] )
+wifi.radio.connect( secrets["ssid"], secrets["password"] )
+
+# Se non ci sono stati errori, siamo qui
+print( "Sono connesso a " + secrets["ssid"])
+print( "Il mio ip ", wifi.radio.ipv4_address )
+
+# il mio mac in formato numero
+strMac=""
+for i in wifi.radio.mac_address:
+    strMac += str(hex(i))[2:]
+    
+print( "Il mio mac: ", strMac)
 
 ipv4 = ipaddress.ip_address("8.8.4.4")
-print("Ping google.com: %f ms" % (wifi.radio.ping(ipv4)*1000))
+print( "Ping google.com in " + str(wifi.radio.ping(ipv4)*1000) + " ms.")

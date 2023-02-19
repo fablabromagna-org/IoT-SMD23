@@ -20,11 +20,11 @@ import adafruit_requests
 
 # Mi connetto usando SSID e pwd che trovo nel file secrets.py
 from secrets import secrets
-print( "Mi connetto a %s"%secrets["ssid"] )
+print( "Connecting to " + secrets["ssid"] )
 wifi.radio.connect( secrets["ssid"], secrets["password"] )
 
-print( "Connesso a %s!"%secrets["ssid"])
-print("Il mio IP: ", wifi.radio.ipv4_address)
+print("Connected to " + secrets["ssid"])
+print("Il mio Ip address:", wifi.radio.ipv4_address)
 print("Il mio MAC:", [hex(i) for i in wifi.radio.mac_address])
 
 # adafruit_requests serve per eseguire delle connessioni HTTP usando le socket

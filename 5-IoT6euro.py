@@ -36,9 +36,10 @@ TEXT_URL = URL_GOOGLE + ID_GSHEET + COMANDO
 # che includiamo con il comando import
 from secrets import secrets
 
-print( "Connecting to %s"%secrets["ssid"] )
+print( "Connecting to " + secrets["ssid"] )
 wifi.radio.connect( secrets["ssid"], secrets["password"] )
-print( "Connected to %s!"%secrets["ssid"])
+
+print("Connected to " + secrets["ssid"])
 print("My IP address is", wifi.radio.ipv4_address)
 
 pool = socketpool.SocketPool( wifi.radio )
