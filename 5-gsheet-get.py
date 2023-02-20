@@ -11,19 +11,18 @@ import wifi
 import socketpool
 import adafruit_requests
 
-
+# Verifico l'esistenza del file secrets.py
 try:
     from secrets import secrets
 
 except ImportError:
-    print("WiFi secrets are kept in secrets.py, please add them there!")
+    print("Non trovo il file secrets.py con le password del WiFI.")
     raise
 
-print( "Connecting to " + secrets["ssid"] )
+# Mi connetto usando SSID e pwd che trovo nel file secrets.py
+print( "Mi connetto a " + secrets["ssid"] )
 wifi.radio.connect( secrets["ssid"], secrets["password"] )
-
-print("Connected to " + secrets["ssid"])
-print("My IP address is", wifi.radio.ipv4_address)
+print("OK. Sono connesso a " + secrets["ssid"])
 
 # le connessioni via HTTP si effettuano grazie ai socket.
 # i socket in circuit python si gestiscono con la libreria socketpool

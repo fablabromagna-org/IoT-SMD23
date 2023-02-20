@@ -12,20 +12,24 @@ import microcontroller
 import time
 
 # Questa invece si scarica da qui
-# 
+# https://learn.adafruit.com/pages/20891/elements/3077480/download?type=zip
 import adafruit_requests
 
 # Manuale della WebAPI
 # http://www.schoolmakerday.it/logger/
 
-# Mi connetto usando SSID e pwd che trovo nel file secrets.py
-from secrets import secrets
-print( "Connecting to " + secrets["ssid"] )
-wifi.radio.connect( secrets["ssid"], secrets["password"] )
+# Verifico l'esistenza del file secrets.py
+try:
+    from secrets import secrets
 
-print("Connected to " + secrets["ssid"])
-print("Il mio Ip address:", wifi.radio.ipv4_address)
-print("Il mio MAC:", [hex(i) for i in wifi.radio.mac_address])
+except ImportError:
+    print("Non trovo il file secrets.py con le password del WiFI.")
+    raise
+
+# Mi connetto usando SSID e pwd che trovo nel file secrets.py
+print( "Mi connetto a " + secrets["ssid"] )
+wifi.radio.connect( secrets["ssid"], secrets["password"] )
+print("OK. Sono connesso a " + secrets["ssid"])
 
 # adafruit_requests serve per eseguire delle connessioni HTTP usando le socket
 # La classe prevede anche connessioni HTTPS quindi usa SSL

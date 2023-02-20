@@ -5,18 +5,19 @@
 import ipaddress
 import wifi
 
+# Verifico l'esistenza del file secrets.py
 try:
     from secrets import secrets
 
 except ImportError:
-    print("WiFi secrets are kept in secrets.py, please add them there!")
+    print("Non trovo il file secrets.py con le password del WiFI.")
     raise
 
+# Mi connetto usando SSID e pwd che trovo nel file secrets.py
 print( "Mi connetto a " + secrets["ssid"] )
 wifi.radio.connect( secrets["ssid"], secrets["password"] )
+print("OK. Sono connesso a " + secrets["ssid"])
 
-# Se non ci sono stati errori, siamo qui
-print( "Sono connesso a " + secrets["ssid"])
 print( "Il mio ip ", wifi.radio.ipv4_address )
 
 # il mio mac in formato numero

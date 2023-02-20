@@ -32,15 +32,18 @@ COMANDO = "/exec?temperatura=" + temperatura + "&nome=" + nome
 # mettiamo tutto insieme
 TEXT_URL = URL_GOOGLE + ID_GSHEET + COMANDO
 
-# le password per il wifi le teniamo nel file secrets.py
-# che includiamo con il comando import
-from secrets import secrets
+# Verifico l'esistenza del file secrets.py
+try:
+    from secrets import secrets
 
-print( "Connecting to " + secrets["ssid"] )
+except ImportError:
+    print("Non trovo il file secrets.py con le password del WiFI.")
+    raise
+
+# Mi connetto usando SSID e pwd che trovo nel file secrets.py
+print( "Mi connetto a " + secrets["ssid"] )
 wifi.radio.connect( secrets["ssid"], secrets["password"] )
-
-print("Connected to " + secrets["ssid"])
-print("My IP address is", wifi.radio.ipv4_address)
+print("OK. Sono connesso a " + secrets["ssid"])
 
 pool = socketpool.SocketPool( wifi.radio )
 context = ssl.create_default_context()
